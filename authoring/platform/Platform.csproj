@@ -63,6 +63,7 @@
     <PackageReference Include="Sitecore.XmCloud.LayoutService" />
     <PackageReference Include="Sitecore.XmCloud.Assemblies" />
     <PackageReference Include="Sitecore.Assemblies.SitecoreHeadlessServicesServer" />
+	
   </ItemGroup>
   <ItemGroup>
     <None Include="Platform.wpp.targets" />
@@ -72,6 +73,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Config\Include\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ContentResolvers\CardContentResolver.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

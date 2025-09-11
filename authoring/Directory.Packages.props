@@ -4,6 +4,7 @@
     </PropertyGroup>
     <PropertyGroup>
         <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+		  <CentralPackageFloatingVersionsEnabled>true</CentralPackageFloatingVersionsEnabled>
     </PropertyGroup>
     <ItemGroup>
         <PackageVersion Include="Sitecore.XmCloud.Kernel" Version="$(PlatformVersion)" />
