@@ -41,8 +41,8 @@ else
 
 builder.Services.AddSitecoreRenderingEngine(options =>
                     {
-                        options.AddStarterKitViews()
-                               .AddDefaultPartialView("_ComponentNotFound");
+                      options.AddStarterKitViews()
+                             .AddDefaultPartialView("_ComponentNotFound");                               
                     })
                 .ForwardHeaders()
                 .WithSitecorePages(sitecoreSettings.EdgeContextId ?? string.Empty, options => { options.EditingSecret = sitecoreSettings.EditingSecret; });
@@ -68,15 +68,28 @@ app.UseRouting();
 app.UseMultisite();
 app.UseStaticFiles();
 
+// example of adding several languages to be supported by the application
 const string defaultLanguage = "en";
+//const string germanLanguage = "de-DE";
+//const string dutchLanguage = "nl-NL";
 app.UseRequestLocalization(options =>
     {
-        // If you add languages in Sitecore which this site / Rendering Host should support, add them here.
         List<CultureInfo> supportedCultures = [new CultureInfo(defaultLanguage)];
+        // If you add languages in Sitecore which this site / Rendering Host should support, add them here.
+        //List<CultureInfo> supportedCultures = [new CultureInfo(defaultLanguage), new CultureInfo(germanLanguage), new CultureInfo(dutchLanguage)];
         options.DefaultRequestCulture = new RequestCulture(defaultLanguage, defaultLanguage);
         options.SupportedCultures = supportedCultures;
         options.SupportedUICultures = supportedCultures;
         options.UseSitecoreRequestLocalization();
+
+        // Custom request culture provider that should be placed after Sitecore ASP.NET SDK providers
+        // and before the provider "Microsoft.AspNetCore.Localization.AcceptLanguageHeaderRequestCultureProvider"
+      
+        // In this case app will support both setting localization by hostnam
+        // and OOTB Sitecore localization resolving by language prefix or query string parameter
+        // this might be the case when you want to have a default language set per hostname
+        // and still allow users to switch languages using language prefix or query string parameter
+        //options.RequestCultureProviders.Insert(4, new HostnameRequestCultureProvider());
     });
 
 app.MapControllerRoute(
